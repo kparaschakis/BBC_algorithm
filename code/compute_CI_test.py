@@ -1,40 +1,35 @@
 import numpy as np
 import pandas as pd
 import time
-
 from BBC_parallel import bbc
 from generate_data import get_data
-
-from scipy.special import expit
 from scipy import stats
-
 from tqdm import tqdm
-
 from sklearn.metrics import accuracy_score, roc_auc_score, r2_score
-
 import matplotlib.pyplot as plt
 
-def percentile_uniformity(bootstrap_distributions, theoretical_values, alpha=0.05):
-    """
 
+def percentile_uniformity(bootstrap_distributions, theoretical_values, alpha_=0.05):
+    """
+    :param alpha_:
     :param bootstrap_distributions: output of bcc. #n runs x bcc iter
     :param theoretical_values: #performance
     :return:
     """
     # Calculate percentiles
     n_runs = len(theoretical_values)
-    percentiles = [np.mean(bootstrap_distributions[i, :] <= theoretical_values[i]) for i in range(n_runs)]
+    percentiles = [np.mean(bootstrap_distributions[p, :] <= theoretical_values[p]) for p in range(n_runs)]
     percentiles = sorted(percentiles)
 
     # True uniforms for confidence intervals
     uniforms = np.zeros((10000, n_runs))
-    for i in range(uniforms.shape[0]):
-        uniforms[i, :] = sorted(np.random.uniform(0, 1, n_runs))
+    for u in range(uniforms.shape[0]):
+        uniforms[u, :] = sorted(np.random.uniform(0, 1, n_runs))
     uniforms_upper = np.repeat(0.0, n_runs)
     uniforms_lower = np.repeat(0.0, n_runs)
     for j in range(uniforms.shape[1]):
-        uniforms_upper[j] = sorted(uniforms[:, j])[int(alpha/2 * uniforms.shape[0])]
-        uniforms_lower[j] = sorted(uniforms[:, j])[int(1-alpha/2 * uniforms.shape[0])]
+        uniforms_upper[j] = sorted(uniforms[:, j])[int(alpha_/2 * uniforms.shape[0])]
+        uniforms_lower[j] = sorted(uniforms[:, j])[int(1-alpha_/2 * uniforms.shape[0])]
 
     # Plot
     plt.plot([0, 1], [0, 1], c='grey')
@@ -50,7 +45,6 @@ def percentile_uniformity(bootstrap_distributions, theoretical_values, alpha=0.0
     return stats.kstest(percentiles, stats.uniform(loc=0.0, scale=1).cdf)[1]
 
 
-
 if __name__ == "__main__":
 
     alpha = 54
@@ -59,18 +53,18 @@ if __name__ == "__main__":
     config = 20
     balance = 0.5
     type_ = 'classification'
-    bbc_type = 'pooled'
+    bbc_type = 'fold'
     bbc_iter = 100
-
     CI_iter = 1000
 
     bb = []
     best = []
     theoretical = []
     for i in tqdm(range(CI_iter)):
-        predictions_table, outcome, folds = get_data(alpha, beta, config, samples, folds_= 3, balance_=balance,
-                                                     type_=type_)
-        theoretical.append(np.max([roc_auc_score(outcome, expit(predictions_table)[:, x]) for x in range(config)]))
+        predictions_table, outcome, folds, performances = get_data(alpha, beta, config, samples, folds_=5,
+                                                                   balance_=balance, type_=type_)
+        winner_configuration = np.argmax([roc_auc_score(outcome, predictions_table[:, x]) for x in range(config)])
+        theoretical.append(performances[winner_configuration])
         bbc_dist = bbc(predictions_table, outcome, type_, folds, bbc_type=bbc_type, iterations=bbc_iter)
         bb.append(bbc_dist)
     bb_ = np.array(bb)

@@ -1,16 +1,17 @@
 import numpy as np
-from sklearn.metrics import  roc_auc_score, r2_score
+from sklearn.metrics import roc_auc_score, r2_score
 from joblib import Parallel, delayed
 
 
 def bbc_pooled(args):
     labels, oos_matrix, N, C, metric_func = args
-    #metric_func = roc_auc_score if metric_func_name == 'roc_auc_score' else r2_score
+    # metric_func = roc_auc_score if metric_func_name == 'roc_auc_score' else r2_score
     in_bag_indices = sorted(np.random.choice(N, N, replace=True))
     out_of_bag_indices = list(set(list(range(N))) - set(in_bag_indices))
     in_bag_performances = [metric_func(labels[in_bag_indices], oos_matrix[in_bag_indices, j]) for j in range(C)]
     winner_configuration = np.argmax(in_bag_performances)
-    out_of_bag_performance = metric_func(labels[out_of_bag_indices], oos_matrix[out_of_bag_indices, winner_configuration])
+    out_of_bag_performance = metric_func(labels[out_of_bag_indices],
+                                         oos_matrix[out_of_bag_indices, winner_configuration])
     return out_of_bag_performance
 
 
@@ -36,7 +37,7 @@ def bbc_averaged(args):
             ((analysis_type == 'classification') & (len(np.unique(labels[index_selection])) > 1))) & \
                 (len(index_selection) > 1):
             out_of_bag_fold_performances.append(metric_func(labels[index_selection],
-                                                       oos_matrix[index_selection, winner_configuration]))
+                                                            oos_matrix[index_selection, winner_configuration]))
     out_of_bag_performances = np.mean(out_of_bag_fold_performances)
     return out_of_bag_performances
 
@@ -56,13 +57,14 @@ def bbc(oos_matrix, labels, analysis_type, folds, bbc_type='pooled', iterations=
     assert bbc_type in ('pooled', 'averaged', 'fold')
     metric_func = roc_auc_score if analysis_type == 'classification' else r2_score
 
-    N = len(labels) # number of samples
+    N = len(labels)  # number of samples
     C = oos_matrix.shape[1]
 
+    bbc_distribution = None
     if bbc_type == 'pooled':
         bbc_distribution = Parallel(n_jobs=-1)(
             delayed(bbc_pooled)(
-                (labels, oos_matrix, N, C,metric_func)
+                (labels, oos_matrix, N, C, metric_func)
             ) for _ in range(iterations)
         )
 
@@ -101,4 +103,3 @@ def bbc(oos_matrix, labels, analysis_type, folds, bbc_type='pooled', iterations=
         # bbc_distribution = out_of_bag_performances
 
     return np.array(bbc_distribution)
-

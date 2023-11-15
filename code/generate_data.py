@@ -1,6 +1,7 @@
 import numpy as np
 from scipy.stats import norm
 
+
 def get_data(beta_a_, beta_b_, configurations_=100, samples_=1000, folds_=5, balance_=0.5, type_='classification'):
     # samples_: sample size
     # configurations_: number of configurations
@@ -13,8 +14,8 @@ def get_data(beta_a_, beta_b_, configurations_=100, samples_=1000, folds_=5, bal
     configuration_performances = np.random.beta(beta_a_, beta_b_, configurations_)
 
     if type_ == 'classification':
-        # Classification: It generates the true performances (auc) for each configuration from a beta distribution and then the
-        # prediction (scores, i.e. no probabilities) that correspond to each configuration.
+        # Classification: It generates the true performances (auc) for each configuration from a beta distribution and
+        # then the prediction (scores, i.e. no probabilities) that correspond to each configuration.
         # Only binary
 
         configuration_means = np.sqrt(2) * norm.ppf(configuration_performances)
@@ -30,11 +31,14 @@ def get_data(beta_a_, beta_b_, configurations_=100, samples_=1000, folds_=5, bal
         predictions_table = np.concatenate([predictions_table_0, predictions_table_1], axis=0)
 
     elif type_ == 'regression':
-        # Regression: It generates the true performances (R squared) for each configuration from a beta distribution and then
-        # the predictions* that correspond to each configuration.
+        # Regression: It generates the true performances (R squared) for each configuration from a beta distribution
+        # and then the predictions* that correspond to each configuration.
         #
         # * Note that the simulated "predictions" are no actual predictions, but rather predictor arrays with a certain
-        # correlation with the outcome/label, but that is equivalent to a prediction: If we fit a simple linear regression model outcome ~ predictor we can end up with the actual predictions. But there is no need to do so (for the sake of saving time); we can instead use the data correlation between predictor and outcome, which would be equivalent to the R squared of the above linear model.
+        # correlation with the outcome/label, but that is equivalent to a prediction: If we fit a simple linear
+        # regression model outcome ~ predictor we can end up with the actual predictions. But there is no need to do so
+        # (for the sake of saving time); we can instead use the data correlation between predictor and outcome, which
+        # would be equivalent to the R squared of the above linear model.
 
         configuration_noise_sigma = np.sqrt(1 / configuration_performances - 1)
         # Simulate predictions table
@@ -50,8 +54,4 @@ def get_data(beta_a_, beta_b_, configurations_=100, samples_=1000, folds_=5, bal
     folds = np.tile(range(folds_), int(np.ceil(samples_ / folds_)))
     folds = folds[:len(outcome)]
 
-    return predictions_table, outcome, folds
-
-
-
-
+    return predictions_table, outcome, folds, configuration_performances
