@@ -60,6 +60,13 @@ def bbc(oos_matrix, labels, analysis_type, folds, bbc_type='pooled', iterations=
     N = len(labels)  # number of samples
     C = oos_matrix.shape[1]
 
+    F = len(np.unique(folds))
+    performance_matrix = np.zeros((F, C))
+    for f in range(F):
+        for c in range(C):
+            performance_matrix[f, c] = metric_func(labels[folds == f], oos_matrix[folds == f, c])
+    winner_configuration = np.argmax(np.mean(performance_matrix, axis=0))
+
     bbc_distribution = None
     if bbc_type == 'pooled':
         bbc_distribution = Parallel(n_jobs=-1)(
@@ -77,11 +84,6 @@ def bbc(oos_matrix, labels, analysis_type, folds, bbc_type='pooled', iterations=
         )
 
     elif bbc_type == 'fold':
-        F = len(np.unique(folds))
-        performance_matrix = np.zeros((F, C))
-        for f in range(F):
-            for c in range(C):
-                performance_matrix[f, c] = metric_func(labels[folds == f], oos_matrix[folds == f, c])
         bbc_distribution = Parallel(n_jobs=-1)(
             delayed(bbc_fold)(
                 (performance_matrix, F)
@@ -102,4 +104,4 @@ def bbc(oos_matrix, labels, analysis_type, folds, bbc_type='pooled', iterations=
         #     out_of_bag_performances.append(np.mean(performance_matrix[out_of_bag_indices, winner_configuration]))
         # bbc_distribution = out_of_bag_performances
 
-    return np.array(bbc_distribution)
+    return np.array(bbc_distribution), winner_configuration
