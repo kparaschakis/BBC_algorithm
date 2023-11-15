@@ -58,14 +58,13 @@ if __name__ == "__main__":
     CI_iter = 1000
 
     bb = []
-    best = []
     theoretical = []
     for i in tqdm(range(CI_iter)):
         predictions_table, outcome, folds, performances = get_data(alpha, beta, config, samples, folds_=5,
                                                                    balance_=balance, type_=type_)
-        winner_configuration = np.argmax([roc_auc_score(outcome, predictions_table[:, x]) for x in range(config)])
+        bbc_dist, winner_configuration = bbc(predictions_table, outcome, type_, folds, bbc_type=bbc_type,
+                                             iterations=bbc_iter)
         theoretical.append(performances[winner_configuration])
-        bbc_dist = bbc(predictions_table, outcome, type_, folds, bbc_type=bbc_type, iterations=bbc_iter)
         bb.append(bbc_dist)
     bb_ = np.array(bb)
 
