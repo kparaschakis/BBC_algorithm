@@ -1,6 +1,10 @@
 import numpy as np
-from sklearn.metrics import roc_auc_score, r2_score
+from sklearn.metrics import roc_auc_score
 from joblib import Parallel, delayed
+
+
+def corrcoef2(V1, V2):
+    return np.corrcoef(V1, V2)[0, 1] ** 2
 
 
 def bbc_pooled(args):
@@ -55,7 +59,7 @@ def bbc_fold(args):
 
 def bbc(oos_matrix, labels, analysis_type, folds, bbc_type='pooled', iterations=1000):
     assert bbc_type in ('pooled', 'averaged', 'fold')
-    metric_func = roc_auc_score if analysis_type == 'classification' else r2_score
+    metric_func = roc_auc_score if analysis_type == 'classification' else corrcoef2
 
     N = len(labels)  # number of samples
     C = oos_matrix.shape[1]
