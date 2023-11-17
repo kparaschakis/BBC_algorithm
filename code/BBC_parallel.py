@@ -8,9 +8,12 @@ def corrcoef2(V1, V2):
 
 
 def bbc_pooled(args):
-    labels, oos_matrix, N, C, metric_func = args
+    labels, oos_matrix, N, C, metric_func, analysis_type = args
     # metric_func = roc_auc_score if metric_func_name == 'roc_auc_score' else r2_score
     in_bag_indices = sorted(np.random.choice(N, N, replace=True))
+    if analysis_type in ['classification', 'multiclass']:
+        while len(np.unique(labels)) > len(np.unique(labels[in_bag_indices])):
+            in_bag_indices = sorted(np.random.choice(N, N, replace=True))
     out_of_bag_indices = list(set(list(range(N))) - set(in_bag_indices))
     in_bag_performances = [metric_func(labels[in_bag_indices], oos_matrix[in_bag_indices, j]) for j in range(C)]
     winner_configuration = np.argmax(in_bag_performances)
@@ -75,7 +78,7 @@ def bbc(oos_matrix, labels, analysis_type, folds, bbc_type='pooled', iterations=
     if bbc_type == 'pooled':
         bbc_distribution = Parallel(n_jobs=-1)(
             delayed(bbc_pooled)(
-                (labels, oos_matrix, N, C, metric_func)
+                (labels, oos_matrix, N, C, metric_func, analysis_type)
             ) for _ in range(iterations)
         )
 
