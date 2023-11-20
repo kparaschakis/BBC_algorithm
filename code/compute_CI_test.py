@@ -9,8 +9,9 @@ from sklearn.metrics import accuracy_score, roc_auc_score, r2_score
 import matplotlib.pyplot as plt
 
 
-def percentile_uniformity(bootstrap_distributions, theoretical_values, alpha_=0.05):
+def percentile_uniformity(bootstrap_distributions, theoretical_values, alpha_=0.05, plot_baselines=True):
     """
+    :param plot_baselines:
     :param alpha_:
     :param bootstrap_distributions: output of bcc. #n runs x bcc iter
     :param theoretical_values: #performance
@@ -32,14 +33,16 @@ def percentile_uniformity(bootstrap_distributions, theoretical_values, alpha_=0.
         uniforms_lower[j] = sorted(uniforms[:, j])[int(1-alpha_/2 * uniforms.shape[0])]
 
     # Plot
-    plt.plot([0, 1], [0, 1], c='grey')
-    plt.plot(uniforms_upper, (np.arange(len(uniforms_upper)) + 1)/len(uniforms_upper), ':', c='grey')
-    plt.plot(uniforms_lower, (np.arange(len(uniforms_upper)) + 1)/len(uniforms_upper), ':', c='grey')
+    if plot_baselines:
+        plt.plot([0, 1], [0, 1], c='grey')
+        plt.plot(uniforms_upper, (np.arange(len(uniforms_upper)) + 1)/len(uniforms_upper), ':', c='grey')
+        plt.plot(uniforms_lower, (np.arange(len(uniforms_upper)) + 1)/len(uniforms_upper), ':', c='grey')
     plt.plot(percentiles, (np.arange(n_runs) + 1)/n_runs)
-    plt.xlim(0, 1)
-    plt.ylim(0, 1)
-    plt.xlabel('percentiles')
-    plt.ylabel('CDF')
+    if plot_baselines:
+        plt.xlim(0, 1)
+        plt.ylim(0, 1)
+        plt.xlabel('percentiles')
+        plt.ylabel('CDF')
 
     # Statistical test p-value (H0: Underlying distribution is uniform)
     return stats.kstest(percentiles, stats.uniform(loc=0.0, scale=1).cdf)[1]
