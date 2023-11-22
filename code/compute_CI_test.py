@@ -1,11 +1,7 @@
-import numpy as np
-import pandas as pd
-import time
-from BBC_parallel import bbc
-from generate_data import get_data
+from BBC_parallel import *
+from generate_data import *
 from scipy import stats
 from tqdm import tqdm
-from sklearn.metrics import accuracy_score, roc_auc_score, r2_score
 import matplotlib.pyplot as plt
 
 
@@ -63,8 +59,8 @@ if __name__ == "__main__":
     bb = []
     theoretical = []
     for i in tqdm(range(CI_iter)):
-        predictions_table, outcome, folds, performances = get_data(alpha, beta, config, samples, folds_=5,
-                                                                   balance_=balance, type_=type_)
+        predictions_table, outcome, folds, performances = get_data(alpha, beta, balance, config, samples, folds_=5,
+                                                                   type_=type_)
         bbc_dist, winner_configuration = bbc(predictions_table, outcome, type_, folds, bbc_type=bbc_type,
                                              iterations=bbc_iter)
         theoretical.append(performances[winner_configuration])
