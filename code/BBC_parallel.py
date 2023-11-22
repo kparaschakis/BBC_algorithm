@@ -7,9 +7,19 @@ def corrcoef2(V1, V2):
     return np.corrcoef(V1, V2)[0, 1] ** 2
 
 
+def auc_multiclass(outcome, predictions):
+    outcome_unique = np.unique(outcome)
+    performance_vector = 0.5 * np.ones((len(outcome_unique), len(outcome_unique)))
+    for out_1 in range(len(outcome_unique)):
+        for out_2 in range(len(outcome_unique)):
+            if out_1 != out_2:
+                performance_vector[out_1, out_2] = roc_auc_score(outcome[np.in1d(outcome, [out_1, out_2])] == out_1,
+                                                                 predictions[np.in1d(outcome, [out_1, out_2]), out_1])
+    return performance_vector
+
+
 def bbc_pooled(args):
     labels, oos_matrix, N, C, metric_func, analysis_type = args
-    # metric_func = roc_auc_score if metric_func_name == 'roc_auc_score' else r2_score
     in_bag_indices = sorted(np.random.choice(N, N, replace=True))
     if analysis_type in ['classification', 'multiclass']:
         while len(np.unique(labels)) > len(np.unique(labels[in_bag_indices])):
