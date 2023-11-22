@@ -2,7 +2,7 @@ import numpy as np
 from scipy.stats import norm
 
 
-def get_data(beta_a_, beta_b_, configurations_=100, samples_=1000, folds_=5, balance_=0.5, type_='classification'):
+def get_data(beta_a_, beta_b_, balance_, configurations_=100, samples_=1000, folds_=5, type_='classification'):
     # samples_: sample size
     # configurations_: number of configurations
     # beta_a_: parameter 1 of performance distribution (beta) of the configurations
@@ -10,7 +10,7 @@ def get_data(beta_a_, beta_b_, configurations_=100, samples_=1000, folds_=5, bal
     # folds_: number of folds
     # balance_: outcome balance
 
-    assert type_ in ['classification', 'regression']
+    assert type_ in ['classification', 'multiclass', 'regression']
     configuration_performances = np.random.beta(beta_a_, beta_b_, configurations_)
 
     if type_ == 'classification':
@@ -29,6 +29,30 @@ def get_data(beta_a_, beta_b_, configurations_=100, samples_=1000, folds_=5, bal
             predictions_table_1[:, c] = np.random.normal(configuration_means[c], 1, samples_1)
             predictions_table_0[:, c] = np.random.normal(0, 1, samples_0)
         predictions_table = np.concatenate([predictions_table_0, predictions_table_1], axis=0)
+
+    elif type_ == 'multiclass':
+        # Multiclass: It generates the true performances (auc) for each configuration from a beta distribution and
+        # then the prediction (scores, i.e. no probabilities) that correspond to each configuration.
+
+        n_classes = len(balance_)
+        configuration_performances = np.zeros((configurations_, n_classes, n_classes))
+        for c in range(configurations_):
+            configuration_matrix = np.random.beta(beta_a_, beta_b_, n_classes ** 2).reshape(n_classes, n_classes)
+            np.fill_diagonal(configuration_matrix, np.repeat(0.5, configuration_matrix.shape[0]))
+            configuration_performances[c, :, :] = configuration_matrix
+
+        configuration_means = np.sqrt(2) * norm.ppf(configuration_performances)
+        # Simulate predictions (scores) table
+        outcome = []
+        for cl in range(n_classes):
+            outcome = np.concatenate(
+                [outcome, np.repeat(cl, int(samples_ * np.sum(balance_[:(cl + 1)]) - len(outcome)))])
+        predictions_table = np.zeros((samples_, configurations_, n_classes))
+        for c in range(configurations_):
+            for cl_from in range(n_classes):
+                for cl_to in range(n_classes):
+                    predictions_table[outcome == cl_to, c, cl_from] = \
+                        np.random.normal(-configuration_means[c, cl_from, cl_to], 1, np.sum(outcome == cl_to))
 
     elif type_ == 'regression':
         # Regression: It generates the true performances (R squared) for each configuration from a beta distribution
