@@ -63,7 +63,13 @@ if __name__ == "__main__":
                                                                    type_=type_)
         bbc_dist, winner_configuration = bbc(predictions_table, outcome, type_, folds, bbc_type=bbc_type,
                                              iterations=bbc_iter)
-        theoretical.append(performances[winner_configuration])
+        if type_ == 'multiclass':
+            outcome_unique = np.unique(outcome)
+            theoretical.append((np.sum(performances[winner_configuration]) -
+                                np.sum(np.diagonal(performances[winner_configuration]))) /\
+                               len(outcome_unique) / (len(outcome_unique)-1))
+        else:
+            theoretical.append(performances[winner_configuration])
         bb.append(bbc_dist)
     bb_ = np.array(bb)
 
