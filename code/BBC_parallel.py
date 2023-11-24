@@ -7,7 +7,7 @@ def corrcoef2(V1, V2):
     return np.corrcoef(V1, V2)[0, 1] ** 2
 
 
-def auc_multiclass(outcome, predictions):
+def auc_multiclass(outcome, predictions, averaged=True):
     outcome_unique = np.unique(outcome)
     performance_vector = 0.5 * np.ones((len(outcome_unique), len(outcome_unique)))
     for out_1 in range(len(outcome_unique)):
@@ -15,6 +15,9 @@ def auc_multiclass(outcome, predictions):
             if out_1 != out_2:
                 performance_vector[out_1, out_2] = roc_auc_score(outcome[np.in1d(outcome, [out_1, out_2])] == out_1,
                                                                  predictions[np.in1d(outcome, [out_1, out_2]), out_1])
+    if averaged:
+        performance_vector = (np.sum(performance_vector) - np.sum(np.diagonal(performance_vector))) /\
+                             len(outcome_unique) / (len(outcome_unique)-1)
     return performance_vector
 
 
@@ -41,18 +44,17 @@ def bbc_averaged(args):
         in_bag_fold_performances = []
         for f in fold_ids:
             index_selection = [ib for ib in in_bag_indices if folds[ib] == f]
-            if ((analysis_type == 'regression') |
-                ((analysis_type == 'classification') & (len(np.unique(labels[index_selection])) > 1))) & \
-                    (len(index_selection) > 1):
-                in_bag_fold_performances.append(metric_func(labels[index_selection], oos_matrix[index_selection, j]))
+            if (analysis_type in ['classification', 'multiclass']) &\
+                    (len(np.unique(labels[index_selection])) < len(np.unique(labels))):
+                index_selection = [ib for ib in in_bag_indices if folds[ib] == f]
+            in_bag_fold_performances.append(metric_func(labels[index_selection], oos_matrix[index_selection, j]))
         in_bag_performances.append(np.mean(in_bag_fold_performances))
     winner_configuration = np.argmax(in_bag_performances)
     out_of_bag_fold_performances = []
     for f in fold_ids:
         index_selection = [ib for ib in out_of_bag_indices if folds[ib] == f]
-        if ((analysis_type == 'regression') |
-            ((analysis_type == 'classification') & (len(np.unique(labels[index_selection])) > 1))) & \
-                (len(index_selection) > 1):
+        if ((analysis_type == 'regression') | ((analysis_type in ['classification', 'multiclass']) &
+                                               (len(np.unique(labels[index_selection])) == len(np.unique(labels))))):
             out_of_bag_fold_performances.append(metric_func(labels[index_selection],
                                                             oos_matrix[index_selection, winner_configuration]))
     out_of_bag_performances = np.mean(out_of_bag_fold_performances)
@@ -72,7 +74,8 @@ def bbc_fold(args):
 
 def bbc(oos_matrix, labels, analysis_type, folds, bbc_type='pooled', iterations=1000):
     assert bbc_type in ('pooled', 'averaged', 'fold')
-    metric_func = roc_auc_score if analysis_type == 'classification' else corrcoef2
+    metric_func = roc_auc_score if analysis_type == 'classification' else corrcoef2 if analysis_type == 'regression'\
+        else auc_multiclass
 
     N = len(labels)  # number of samples
     C = oos_matrix.shape[1]
