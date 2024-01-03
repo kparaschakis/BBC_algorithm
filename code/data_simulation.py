@@ -4,12 +4,15 @@ import pandas as pd
 import os
 
 # Simulation parameters
-alpha_beta_list = [[9, 6], [14, 6], [24, 6], [54, 6]]
-samples_list = [20, 50, 100, 500, 1000]
-config_list = [50, 100, 500, 1000]
+alpha_beta_list = [[9, 6], [24, 6]]
+samples_list = [50, 500]
+config_list = [100, 500]
 balance_list = ['equal', 'imbalanced']
-classes_list = [2, 4, 10]
+classes_list = [2, 10]
 CI_iter = 200
+# Set seed
+np.random.seed(4321)
+# Loop
 for alpha_beta in alpha_beta_list:
     for samples in samples_list:
         for config in config_list:
