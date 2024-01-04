@@ -95,7 +95,7 @@ def bbc(oos_matrix, labels, analysis_type, folds, bbc_type='pooled', iterations=
 
     bbc_distribution = None
     if bbc_type == 'pooled':
-        bbc_distribution = Parallel(n_jobs=-1)(
+        bbc_distribution = Parallel(prefer="threads", n_jobs=-1)(
             delayed(bbc_pooled)(
                 (labels, oos_matrix, N, C, metric_func, analysis_type)
             ) for _ in range(iterations)
@@ -103,7 +103,7 @@ def bbc(oos_matrix, labels, analysis_type, folds, bbc_type='pooled', iterations=
 
     elif bbc_type == 'averaged':
         fold_ids = np.unique(folds)
-        bbc_distribution = Parallel(n_jobs=-1)(
+        bbc_distribution = Parallel(prefer="threads", n_jobs=-1)(
             delayed(bbc_averaged)(
                 (labels, oos_matrix, N, C, metric_func, analysis_type, fold_ids, folds)
             ) for _ in range(iterations)
