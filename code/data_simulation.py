@@ -21,7 +21,7 @@ for alpha_beta in alpha_beta_list:
                     alpha, beta = alpha_beta
                     folder_name = 'alpha_' + str(alpha) + '_beta_' + str(beta) + '_samples_' + str(samples) +\
                                   '_config_' + str(config) + '_balance_' + balance_ + '_classes_' + str(classes)
-                    os.makedirs('../data_for_comparison/' + folder_name)
+                    os.makedirs('../simulated_data_for_comparison/' + folder_name)
                     for i in range(CI_iter):
                         balance = np.repeat(1/classes, classes) if balance_ == 'equal' else\
                             [0.05] + list(np.repeat((1 - 0.05)/(classes - 1), classes - 1))
@@ -32,25 +32,25 @@ for alpha_beta in alpha_beta_list:
                             predictions_table = predictions_table[:, :, 1]
                             performances = performances[:, 1, 0]
                         # noinspection PyTypeChecker
-                        pd.DataFrame(outcome).to_csv('../data_for_comparison/' + folder_name +
+                        pd.DataFrame(outcome).to_csv('../simulated_data_for_comparison/' + folder_name +
                                                      '/outcome_' + str(i) + '.csv', index=False)
                         # noinspection PyTypeChecker
-                        pd.DataFrame(folds).to_csv('../data_for_comparison/' + folder_name +
+                        pd.DataFrame(folds).to_csv('../simulated_data_for_comparison/' + folder_name +
                                                    '/folds_' + str(i) + '.csv', index=False)
                         if classes == 2:
                             # noinspection PyTypeChecker
-                            pd.DataFrame(predictions_table).to_csv('../data_for_comparison/' + folder_name +
+                            pd.DataFrame(predictions_table).to_csv('../simulated_data_for_comparison/' + folder_name +
                                                                    '/predictions_' + str(i) + '.csv', index=False)
                             # noinspection PyTypeChecker
-                            pd.DataFrame(performances).to_csv('../data_for_comparison/' + folder_name +
+                            pd.DataFrame(performances).to_csv('../simulated_data_for_comparison/' + folder_name +
                                                               '/performances_' + str(i) + '.csv', index=False)
                         else:
                             for k in range(predictions_table.shape[2]):
                                 # noinspection PyTypeChecker
-                                pd.DataFrame(predictions_table[:, :, k]).to_csv('../data_for_comparison/' +
+                                pd.DataFrame(predictions_table[:, :, k]).to_csv('../simulated_data_for_comparison/' +
                                                                                 folder_name + '/predictions_' + str(i) +
                                                                                 '_' + str(k) + '.csv', index=False)
                                 # noinspection PyTypeChecker
-                                pd.DataFrame(performances[:, k, :]).to_csv('../data_for_comparison/' + folder_name +
-                                                                           '/performances_' + str(i) + '_' + str(k) +
-                                                                           '.csv', index=False)
+                                pd.DataFrame(performances[:, k, :]).to_csv('../simulated_data_for_comparison/' +
+                                                                           folder_name + '/performances_' + str(i) +
+                                                                           '_' + str(k) + '.csv', index=False)
