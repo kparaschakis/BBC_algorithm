@@ -32,9 +32,9 @@ class CppAuc:
         result = self._handle.cpp_auc_ext(y_score, y_true, n)
         return result
 
-    def roc_auc_score_batch(self, y_true: np.array, y_score: np.array) -> np.array:
-        raise NotImplemented
-        return np.array(result)
+    # def roc_auc_score_batch(self, y_true: np.array, y_score: np.array) -> np.array:
+    #     raise NotImplemented
+    #     return np.array(result)
 
 
 def fast_auc(y_true: np.array, y_prob: np.array) -> Union[float, str]:
@@ -42,10 +42,10 @@ def fast_auc(y_true: np.array, y_prob: np.array) -> Union[float, str]:
 
     Args:
         y_true (np.array): 1D numpy array as true labels.
-        y_score (np.array): 1D numpy array as probability predictions.
+        y_prob (np.array): 1D numpy array as probability predictions.
 
     Returns:
-        float or str: AUC score or 'error' if imposiible to calculate
+        float or str: AUC score or 'error' if impossible to calculate
     """
     # binary clf curve
     y_true = (y_true == 1)
@@ -59,7 +59,7 @@ def fast_auc(y_true: np.array, y_prob: np.array) -> Union[float, str]:
 
     tps = np.cumsum(y_true)[threshold_idxs]
     fps = 1 + threshold_idxs - tps
-    thresholds = y_score[threshold_idxs]
+    # thresholds = y_score[threshold_idxs]
 
     if len(fps) > 2:
         optimal_idxs = np.where(np.r_[True,
@@ -68,12 +68,12 @@ def fast_auc(y_true: np.array, y_prob: np.array) -> Union[float, str]:
                                       True])[0]
         fps = fps[optimal_idxs]
         tps = tps[optimal_idxs]
-        thresholds = thresholds[optimal_idxs]
+        # thresholds = thresholds[optimal_idxs]
 
     # roc
     tps = np.r_[0, tps]
     fps = np.r_[0, fps]
-    thresholds = np.r_[thresholds[0] + 1, thresholds]
+    # thresholds = np.r_[thresholds[0] + 1, thresholds]
 
     if fps[-1] <= 0:
         fpr = np.repeat(np.nan, fps.shape)

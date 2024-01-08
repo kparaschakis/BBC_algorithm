@@ -1,6 +1,6 @@
 # Libraries and functions
 import pandas as pd
-from compute_CI_test import *
+from BBC_parallel import *
 
 # Define BBC types
 bbc_types = ['pooled', 'fold']
