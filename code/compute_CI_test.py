@@ -5,9 +5,11 @@ from tqdm import tqdm
 import matplotlib.pyplot as plt
 
 
-def percentile_uniformity(bootstrap_distributions, theoretical_values, alpha_=0.05, plot_baselines=True):
+def percentile_uniformity(bootstrap_distributions, theoretical_values, alpha_=0.05, plot_baselines=True,
+                          plot_result=True):
     """
     :param plot_baselines:
+    :param plot_result:
     :param alpha_:
     :param bootstrap_distributions: output of bcc. #n runs x bcc iter
     :param theoretical_values: #performance
@@ -33,7 +35,8 @@ def percentile_uniformity(bootstrap_distributions, theoretical_values, alpha_=0.
         plt.plot([0, 1], [0, 1], c='grey')
         plt.plot(uniforms_upper, (np.arange(len(uniforms_upper)) + 1)/len(uniforms_upper), ':', c='grey')
         plt.plot(uniforms_lower, (np.arange(len(uniforms_upper)) + 1)/len(uniforms_upper), ':', c='grey')
-    plt.plot(percentiles, (np.arange(n_runs) + 1)/n_runs)
+    if plot_result:
+        plt.plot(percentiles, (np.arange(n_runs) + 1)/n_runs)
     if plot_baselines:
         plt.xlim(0, 1)
         plt.ylim(0, 1)
