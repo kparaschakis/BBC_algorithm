@@ -14,8 +14,6 @@ for sc in range(len(sim_configurations)):
     sim_conf = sim_configurations[sc]
     main_path = '../simulated_data_for_comparison/' + sim_conf + '/'
     alpha, beta, samples, configurations, balance, classes = [sim_conf.split('_')[p] for p in [1, 3, 5, 7, 9, 11]]
-    alpha = int(alpha)
-    beta = int(beta)
     samples = int(samples)
     configurations = int(configurations)
     classes = int(classes)
