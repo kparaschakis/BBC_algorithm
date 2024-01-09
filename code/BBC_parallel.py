@@ -25,10 +25,12 @@ def auc_multiclass(outcome, predictions, averaged=True):
 def bbc_pooled(args):
     labels, oos_matrix, N, C, metric_func, analysis_type = args
     in_bag_indices = sorted(np.random.choice(N, N, replace=True))
-    if analysis_type in ['classification', 'multiclass']:
-        while len(np.unique(labels)) > len(np.unique(labels[in_bag_indices])):
-            in_bag_indices = sorted(np.random.choice(N, N, replace=True))
     out_of_bag_indices = list(set(list(range(N))) - set(in_bag_indices))
+    if analysis_type in ['classification', 'multiclass']:
+        while (len(np.unique(labels)) > len(np.unique(labels[in_bag_indices]))) |\
+                (len(np.unique(labels)) > len(np.unique(labels[out_of_bag_indices]))):
+            in_bag_indices = sorted(np.random.choice(N, N, replace=True))
+            out_of_bag_indices = list(set(list(range(N))) - set(in_bag_indices))
     in_bag_performances = [metric_func(labels[in_bag_indices].astype(bool),
                                        oos_matrix[in_bag_indices, j].astype(np.float32)) for j in range(C)]
     winner_configuration = np.argmax(in_bag_performances)
