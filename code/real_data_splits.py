@@ -44,5 +44,22 @@ for d in splits_table.index:
     data = pd.DataFrame(dataset['data'])
     data.columns = [dataset['attributes'][a][0].lower() for a in range(len(dataset['attributes']))]
     # Needs to be stratified!
+    split_array = np.zeros((splits_table.loc[d, 'train_n'], n_splits))
+    classes = data['class'].unique()
+    class_selection_n = []
+    for class_ in classes:
+        class_selection_n.append(int(np.round(splits_table.loc[d, 'train_n'] * data['class'].value_counts()[class_] /
+                                              len(data))))
+    if np.sum(class_selection_n) < splits_table.loc[d, 'train_n']:
+        excess = int(np.sum(class_selection_n) - splits_table.loc[d, 'train_n'])
+        class_selection_n[np.argmax(class_selection_n)] = class_selection_n[np.argmax(class_selection_n)] - excess
     for s in range(n_splits):
-        ...
+        selection = []
+        for c in range(len(classes)):
+            class_ = classes[c]
+            selection += list(np.random.choice(list(data.index[data['class'] == class_]),
+                                               class_selection_n[c], replace=False))
+        split_array[:, s] = sorted(selection)
+    # noinspection PyTypeChecker
+    pd.DataFrame(split_array).to_csv('../real_datasets/train_test_split_indices/' +
+                                     dataset_name.split('.arff')[0] + '.csv')
