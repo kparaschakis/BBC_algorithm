@@ -63,16 +63,15 @@ for d in range(len(split_files)):
         analysis_id = evaluation_grid_list[analysis_i]
         dataset_run = evaluation_grid[analysis_id]['datasetInfo']['datasetName']
         outcome, split_indices, descriptions, predictions = read_JAD_output_classification(evaluation_grid[analysis_id])
-        pd.DataFrame(outcome).to_csv('../real_datasets/JAD_configurations_predictions/' + dataset_run +
-                                     '_outcome.csv', index=False)
-        pd.DataFrame(split_indices).to_csv('../real_datasets/JAD_configurations_predictions/' + dataset_run +
-                                           '_splitIndices.csv', index=False)
-        pd.DataFrame(descriptions).to_csv('../real_datasets/JAD_configurations_predictions/' + dataset_run +
-                                          '_configurations.csv', index=False)
+        pd.DataFrame(outcome).to_csv('../real_datasets/JAD_results/' + dataset_run + '_outcome.csv', index=False)
+        pd.DataFrame(split_indices).to_csv('../real_datasets/JAD_results/' + dataset_run + '_splitIndices.csv',
+                                           index=False)
+        pd.DataFrame(descriptions).to_csv('../real_datasets/JAD_results/' + dataset_run + '_configurations.csv',
+                                          index=False)
         if len(predictions.shape) == 2:
-            pd.DataFrame(predictions).to_csv('../real_datasets/JAD_configurations_predictions/' + dataset_run +
-                                             '_predictions.csv', index=False)
+            pd.DataFrame(predictions).to_csv('../real_datasets/JAD_results/' + dataset_run + '_predictions.csv',
+                                             index=False)
         else:
             for o in range(len(np.unique(outcome))):
-                pd.DataFrame(predictions[:, :, o]).to_csv('../real_datasets/JAD_configurations_predictions/' +
-                                                          dataset_run + '_predictions_' + str(o) + '.csv', index=False)
+                pd.DataFrame(predictions[:, :, o]).to_csv('../real_datasets/JAD_results/' + dataset_run +
+                                                          '_predictions_' + str(o) + '.csv', index=False)
