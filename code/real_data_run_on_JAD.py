@@ -41,6 +41,7 @@ for d in range(len(split_files)):
         indices = splits_file[str(s)]
         indices_int = [int(indices[i]) for i in range(len(indices))]
         data_to_upload = data.loc[indices_int]
+        data_to_upload['class'] = ['c' + data_to_upload['class'][i] for i in data_to_upload.index]
         data_to_upload.to_csv('../temp.csv')
         jad.upload_dataset(project, dataset_name + '_run_' + str(s), '../temp.csv')
         print('Training split', s+1, 'of', n_splits, 'uploaded')
@@ -61,8 +62,17 @@ for d in range(len(split_files)):
     for analysis_i in range(len(evaluation_grid_list)):
         analysis_id = evaluation_grid_list[analysis_i]
         dataset_run = evaluation_grid[analysis_id]['datasetInfo']['datasetName']
-        descriptions, predictions = read_JAD_output_2(evaluation_grid[analysis_id])
+        outcome, split_indices, descriptions, predictions = read_JAD_output_classification(evaluation_grid[analysis_id])
+        pd.DataFrame(outcome).to_csv('../real_datasets/JAD_configurations_predictions/' + dataset_run +
+                                     '_outcome.csv', index=False)
+        pd.DataFrame(split_indices).to_csv('../real_datasets/JAD_configurations_predictions/' + dataset_run +
+                                           '_splitIndices.csv', index=False)
         pd.DataFrame(descriptions).to_csv('../real_datasets/JAD_configurations_predictions/' + dataset_run +
                                           '_configurations.csv', index=False)
-        pd.DataFrame(predictions).to_csv('../real_datasets/JAD_configurations_predictions/' + dataset_run +
-                                         '_predictions.csv', index=False)
+        if len(predictions.shape) == 2:
+            pd.DataFrame(predictions).to_csv('../real_datasets/JAD_configurations_predictions/' + dataset_run +
+                                             '_predictions.csv', index=False)
+        else:
+            for o in range(len(np.unique(outcome))):
+                pd.DataFrame(predictions[:, :, o]).to_csv('../real_datasets/JAD_configurations_predictions/' +
+                                                          dataset_run + '_predictions_' + str(o) + '.csv', index=False)

@@ -3,16 +3,28 @@ import numpy as np
 
 
 # Function to read the JAD output
-def read_JAD_output_2(JAD_analysis):
+def read_JAD_output_classification(JAD_analysis):
+    split_indices = JAD_analysis['splitIndices']
     configuration_descriptions = []
-    oos_predictions = []
-    for i in range(len(JAD_analysis['oosPredictions']['predictions'].keys())):
-        configuration_description = list(JAD_analysis['oosPredictions']['predictions'].keys())[i]
+    outcome = JAD_analysis['targetData']['data']
+    if len(np.unique(outcome)) == 2:
+        oos_predictions = []
+    else:
+        oos_predictions = np.zeros((len(outcome),
+                                    len(JAD_analysis['oosPredictions']['predictions'].keys()),
+                                    len(np.unique(outcome))))
+    for c in range(len(JAD_analysis['oosPredictions']['predictions'].keys())):
+        configuration_description = list(JAD_analysis['oosPredictions']['predictions'].keys())[c]
         configuration_descriptions.append(configuration_description)
-        # Calculate evaluation
-        oos_list = JAD_analysis['oosPredictions']['predictions'][configuration_description]
-        if i == 0:
-            oos_predictions = np.array(oos_list)
+        # gather predictions
+        if len(np.unique(outcome)) == 2:
+            oos_list = JAD_analysis['oosPredictions']['predictions'][configuration_description]
+            if c == 0:
+                oos_predictions = np.array(oos_list)
+            else:
+                oos_predictions = np.append(oos_predictions, np.array(oos_list), axis=1)
         else:
-            oos_predictions = np.append(oos_predictions, np.array(oos_list), axis=1)
-    return configuration_descriptions, oos_predictions
+            oos_predictions[:, c, :] =\
+                np.array([JAD_analysis['oosPredictions']['predictions'][configuration_description][i][0]
+                          for i in range(len(outcome))])
+    return outcome, split_indices, configuration_descriptions, oos_predictions
