@@ -21,11 +21,11 @@ project = jad.project.find_project('bbc_research')
 # Number of JAD cores
 cores = 3
 # Define analysis
-cv_params = cv_params.standard_cv(None, n_repeats).with_best_model_rule().with_disabled_progress_update(). \
+cv_args = cv_params.standard_cv(None, n_repeats).with_best_model_rule().with_disabled_progress_update(). \
     with_disabled_correction()
 tuning_grid = tuning_params.auto()
 form_grid = analysis_form.classification('class', 'TYPICAL', cores).with_tuning_strategy(tuning_grid). \
-    with_cv_params(cv_params).with_plots([])
+    with_cv_params(cv_args).with_plots([])
 # Loop over datasets
 data_files_path = '../real_datasets/'
 for d in range(len(split_files)):
