@@ -101,3 +101,5 @@ for f in range(len(datasets_list)):
         winners_performances.at[r] = evaluations
         jad.delete_dataset(train_id)
         jad.delete_dataset(test_id)
+        print('Dataset', f+1, 'of', len(datasets_list), '/ run', r+1, 'of', len(winners_file))
+    winners_performances.to_csv('../real_datasets_holdOut_performances/' + dataset + '.csv')
