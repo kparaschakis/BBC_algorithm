@@ -3,6 +3,7 @@ import numpy as np
 from jadbio_internal.ml.hyperparam_conf import HyperparamConf
 from jadbio_internal.ml.fs.LASSO import LASSO
 from jadbio_internal.ml.fs.SESParams import SESParams
+from jadbio_internal.ml.fs.Univariate import Univariate
 from jadbio_internal.ml.algo.DT import DT
 from jadbio_internal.ml.algo.dt.SplitFunction import SplitFunction
 from jadbio_internal.ml.algo.dt.SplitCriterion import SplitCriterion
@@ -20,10 +21,10 @@ def make_configuration(description):
     elif 'LASSO' in description:
         penalty = np.float(description.split('penalty=')[1].split(')')[0])
         fs = LASSO(max_vars=25, penalty=penalty)
-    # elif 'Univariate feature selection' in description:
-    #     uni_alpha = np.float(description.split('alpha=')[1].split(',')[0])
-    #     maxVars = int(description.split('maxVars=')[1].split(' |')[0])
-    #     fs = uni_selection(uni_alpha, maxVars)
+    elif 'Univariate feature selection' in description:
+        uni_alpha = np.float(description.split('alpha=')[1].split(',')[0])
+        maxVars = int(description.split('maxVars=')[1].split(' |')[0])
+        fs = Univariate(uni_alpha, maxVars)
 
     if 'Classification Decision Tree' in description:
         minLS = int(description.split('leaf size = ')[1].split(',')[0])
