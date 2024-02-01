@@ -37,10 +37,11 @@ for f in range(len(datasets_list)):
         winners_file['winners_eval'] = winners_file['winners_eval'] - 1  # R starts counting from 1
     winners_performances = winners_file.copy()[0:0]
     splits_file = pd.read_csv('../real_datasets/train_test_split_indices/' + dataset + '.csv', index_col=0)
+    # Load dataset
+    dataset_ = arff.load(open('../real_datasets/' + dataset + '.arff'))
+    data = pd.DataFrame(dataset_['data'])
+    data.columns = [dataset_['attributes'][a][0].lower() for a in range(len(dataset_['attributes']))]
     for r in range(len(winners_file)):
-        dataset_ = arff.load(open('../real_datasets/' + dataset + '.arff'))
-        data = pd.DataFrame(dataset_['data'])
-        data.columns = [dataset_['attributes'][a][0].lower() for a in range(len(dataset_['attributes']))]
         # Upload train and test datasets
         indices = splits_file[str(r)]
         indices_int = [int(indices[i]) for i in range(len(indices))]
