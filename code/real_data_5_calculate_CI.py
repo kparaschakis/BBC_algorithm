@@ -104,3 +104,21 @@ plt.close()
 # Save summaries
 # noinspection PyTypeChecker
 summaries.to_csv('../real_datasets_summaries.csv', index=False)
+
+# Missing cases for mabt and co.
+missing_summaries = pd.DataFrame(columns=['dataset', 'DeLong', 'HanleyMcNeil', 'bt', 'DeLong10p', 'HanleyMcNeil10p',
+                                          'bt10p', 'mabt'])
+for d in range(len(real_datasets)):
+    missing_summaries.at[d, 'dataset'] = real_datasets[d]
+    result_columns = ['DeLong', 'HanleyMcNeil', 'bt', 'DeLong10p', 'HanleyMcNeil10p', 'bt10p', 'mabt']
+    if os.path.exists('../multiplicity-adjusted_bootstrap_tilting/real_datasets_results/' + real_datasets[d] + '.csv'):
+        results = pd.read_csv('../multiplicity-adjusted_bootstrap_tilting/real_datasets_results/' +
+                              real_datasets[d] + '.csv')
+        missing_cases = results[['DeLong', 'Hanley_McNeil', 'bt', 'DeLong_10p',
+                                 'Hanley_McNeil_10p', 'bt_10p', 'mabt']].isna().sum()
+        missing_summaries.at[d, result_columns] = [int(m) for m in missing_cases]
+    else:
+        missing_summaries.at[d, result_columns] = np.nan
+
+# noinspection PyTypeChecker
+missing_summaries.to_csv('../multiplicity-adjusted_bootstrap_tilting/real_datasets_missing cases.csv', index=False)
