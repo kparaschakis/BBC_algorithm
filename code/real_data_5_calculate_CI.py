@@ -119,6 +119,5 @@ for d in range(len(real_datasets)):
         missing_summaries.at[d, result_columns] = [int(m) for m in missing_cases]
     else:
         missing_summaries.at[d, result_columns] = np.nan
-
 # noinspection PyTypeChecker
 missing_summaries.to_csv('../multiplicity-adjusted_bootstrap_tilting/real_datasets_missing cases.csv', index=False)
