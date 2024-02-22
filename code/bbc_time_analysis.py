@@ -97,7 +97,21 @@ if __name__ == "__main__":
         plt.legend()
         fig.tight_layout()
         plt.show()
-        fig.savefig(f'../results/{exp_type}.pdf', dpi=250)
+        fig.savefig(f'../results/{exp_type}.pdf', dpi=250, bbox_inches='tight')
+
+        fig, ax = plt.subplots(1, 1, figsize=(4, 2.5))
+        ax.errorbar(exp_values, pool_val, yerr=pool_err, capsize=5,
+                    linestyle='--', marker='o', label='BBC')
+        ax.errorbar(exp_values, fold_val, yerr=fold_err, capsize=5,
+                    linestyle='-.', marker='x', label='FBBC')
+        ax.set_xlabel(f'{exp_type}')
+        ax.set_ylabel('Run time (s)')
+        ax.grid(True)
+        ax.set_yscale("log")
+        plt.legend()
+        fig.tight_layout()
+        plt.show()
+        fig.savefig(f'../results/{exp_type}_LOG.pdf', dpi=250, bbox_inches='tight')
 
         with open(f'../results/time_{exp_type}.json', 'w') as fp:
             json.dump(exp_results, fp, indent=0)
