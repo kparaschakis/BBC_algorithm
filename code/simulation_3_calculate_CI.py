@@ -51,3 +51,12 @@ plt.close()
 # Save summaries
 # noinspection PyTypeChecker
 summaries.to_csv('../summaries.csv', index=False)
+
+# Missing cases for mabt and co.
+missing = pd.DataFrame(columns=['dataset', 'DeLong', 'Hanley_McNeil', 'bt', 'DeLong_10p', 'Hanley_McNeil_10p', 'bt_10p', 'mabt'])
+for s in range(len(sim_configurations)):
+    results = pd.read_csv('../multiplicity-adjusted_bootstrap_tilting/simulated_data_results/' + sim_configurations[s])
+    missing.at[s, 'dataset'] = sim_configurations[s]
+    missing.at[s, missing.columns[1:]] = results.isna().sum()[missing.columns[1:]]
+# noinspection PyTypeChecker
+missing.to_csv('../multiplicity-adjusted_bootstrap_tilting/simulated_data_missing_cases.csv')
