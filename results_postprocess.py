@@ -63,7 +63,7 @@ if __name__ == "__main__":
     # Swarm
     fig, axes = plt.subplots(1, 2, figsize=figsize)
     for ax, x, data in zip(axes, (df_test_sim, df_test), ("Simulation", "Benchmakrs")):
-        sns.swarmplot(x, x='method', y='_t', hue='Reject', s=5, ax=ax)
+        sns.swarmplot(x, x='method', y='_t', hue='Reject', s=4.5, ax=ax)
         ax.set_xlabel(None)
         ax.set_ylabel("Tightness")
         ax.set_title(f"{data}")
@@ -75,7 +75,7 @@ if __name__ == "__main__":
     # Swarm ratio
     fig, axes = plt.subplots(1, 2, figsize=figsize)
     for ax, x, data in zip(axes, (df_test_sim, df_test), ("Simulation", "Benchmakrs")):
-        sns.swarmplot(x.drop(x[x['method'] == 'BBC'].index), x='method', y='ratio', hue='Reject', s=4.5, ax=ax)
+        sns.swarmplot(x.drop(x[x['method'] == 'BBC'].index), x='method', y='ratio', hue='Reject', s=3.75, ax=ax)
         ax.set_xlabel(None)
         ax.set_ylabel("Tightness ratio to BBC")
         ax.set_title(f"{data}")

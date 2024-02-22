@@ -53,19 +53,22 @@ if __name__ == "__main__":
     beta = 6
     samples = 500
     config = 20
+    foldss=5
     balance = 0.5
     type_ = 'classification'
     bbc_type = 'fold'
     bbc_iter = 100
-    CI_iter = 1000
+    CI_iter = 100
+
+    n_jobs = 1
 
     bb = []
     theoretical = []
     for i in tqdm(range(CI_iter)):
-        predictions_table, outcome, folds, performances = get_data(alpha, beta, balance, config, samples, folds_=5,
+        predictions_table, outcome, folds, performances = get_data(alpha, beta, balance, config, samples, folds_=foldss,
                                                                    type_=type_)
         bbc_dist, winner_configuration = bbc(predictions_table, outcome, type_, folds, bbc_type=bbc_type,
-                                             iterations=bbc_iter)
+                                             iterations=bbc_iter, n_jobs=n_jobs)
         if type_ == 'multiclass':
             outcome_unique = np.unique(outcome)
             theoretical.append((np.sum(performances[winner_configuration]) -
