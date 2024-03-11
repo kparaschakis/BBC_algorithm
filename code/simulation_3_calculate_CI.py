@@ -53,7 +53,8 @@ plt.close()
 summaries.to_csv('../summaries.csv', index=False)
 
 # Missing cases for mabt and co.
-missing = pd.DataFrame(columns=['dataset', 'DeLong', 'Hanley_McNeil', 'bt', 'DeLong_10p', 'Hanley_McNeil_10p', 'bt_10p', 'mabt'])
+missing = pd.DataFrame(columns=['dataset', 'DeLong', 'Hanley_McNeil', 'bt', 'DeLong_10p', 'Hanley_McNeil_10p',
+                                'bt_10p', 'mabt'])
 for s in range(len(sim_configurations)):
     results = pd.read_csv('../multiplicity-adjusted_bootstrap_tilting/simulated_data_results/' + sim_configurations[s])
     missing.at[s, 'dataset'] = sim_configurations[s]
