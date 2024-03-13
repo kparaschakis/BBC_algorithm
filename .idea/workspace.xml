@@ -1,0 +1,374 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="66f5acfb-b5dd-4d10-9d39-9b7790b8ae5e" name="Changes" comment="minor" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="2Xvvp4ezn0skJIFfOWBwssCkVeF" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PythonContentEntriesConfigurable" />
+  </component>
+  <component name="PyConsoleOptionsProvider">
+    <option name="myShowVariablesByDefault" value="false" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="66f5acfb-b5dd-4d10-9d39-9b7790b8ae5e" name="Changes" comment="" />
+      <created>1699522549486</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1699522549486</updated>
+    </task>
+    <task id="LOCAL-00001" summary="Ititiate">
+      <created>1699523225050</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1699523225050</updated>
+    </task>
+    <task id="LOCAL-00002" summary="minor">
+      <created>1699524065328</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1699524065328</updated>
+    </task>
+    <task id="LOCAL-00003" summary="initiate">
+      <created>1699524951756</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1699524951756</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Only file &quot;compute_CI_test.py&quot; changed, lines 64-67: Theoretical performance is not the maximum AUC of the generated data. It is the beta distribution value that corresponds to the winner configuration.">
+      <created>1700041069659</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1700041069659</updated>
+    </task>
+    <task id="LOCAL-00005" summary="It returns also the winner configuration based on the average fold performances">
+      <created>1700044342229</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1700044342229</updated>
+    </task>
+    <task id="LOCAL-00006" summary="winner configuration fix">
+      <created>1700044997300</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1700044997300</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Replaced r2 metric with correlation squared.">
+      <created>1700125917599</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1700125917599</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Make sure all classes are represented in BBC resampling">
+      <created>1700223401522</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1700223401522</updated>
+    </task>
+    <task id="LOCAL-00009" summary="optional plot of CIs">
+      <created>1700483948910</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1700483948910</updated>
+    </task>
+    <task id="LOCAL-00010" summary="fast AUC calculation">
+      <created>1700488042794</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1700488042794</updated>
+    </task>
+    <task id="LOCAL-00011" summary="file delete">
+      <created>1700488079744</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1700488079744</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Multiclass data simulation for one vs one based metric">
+      <created>1700641421421</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1700641421421</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Multiclass case included">
+      <created>1700816956870</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1700816956870</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Multiclass case included">
+      <created>1700820319020</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1700820319020</updated>
+    </task>
+    <task id="LOCAL-00015" summary="agreed simulation parameter lists">
+      <created>1704287264382</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1704287264382</updated>
+    </task>
+    <task id="LOCAL-00016" summary="compare pooled vs fold BBC">
+      <created>1704287307297</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1704287307297</updated>
+    </task>
+    <task id="LOCAL-00017" summary="remove irrelevant lines">
+      <created>1704291432758</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1704291432758</updated>
+    </task>
+    <task id="LOCAL-00018" summary="BBC methods comparison">
+      <created>1704292556843</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1704292556843</updated>
+    </task>
+    <task id="LOCAL-00019" summary="fast AUC implemented">
+      <created>1704362975697</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1704362975697</updated>
+    </task>
+    <task id="LOCAL-00020" summary="minor problem in fast auc">
+      <created>1704364212357</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1704364212357</updated>
+    </task>
+    <task id="LOCAL-00021" summary="minor">
+      <created>1704366035444</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1704366035444</updated>
+    </task>
+    <task id="LOCAL-00022" summary="initiation">
+      <created>1704366633480</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1704366633480</updated>
+    </task>
+    <task id="LOCAL-00023" summary="minor">
+      <created>1704695837250</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1704695837250</updated>
+    </task>
+    <task id="LOCAL-00024" summary="minor">
+      <created>1704697654403</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1704697654403</updated>
+    </task>
+    <task id="LOCAL-00025" summary="initiation">
+      <created>1704700884045</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1704700884045</updated>
+    </task>
+    <task id="LOCAL-00026" summary="minor">
+      <created>1704743836410</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1704743836410</updated>
+    </task>
+    <task id="LOCAL-00027" summary="pooled BBC resample indices if out of bag performances not calculable">
+      <created>1704785836719</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1704785836719</updated>
+    </task>
+    <task id="LOCAL-00028" summary="minor">
+      <created>1704786414415</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1704786414415</updated>
+    </task>
+    <task id="LOCAL-00029" summary="save plots as pdf">
+      <created>1704962718372</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1704962718372</updated>
+    </task>
+    <task id="LOCAL-00030" summary="initiate">
+      <created>1705232165463</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1705232165463</updated>
+    </task>
+    <task id="LOCAL-00031" summary="save split indices tables by dataset">
+      <created>1705322861396</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1705322861396</updated>
+    </task>
+    <task id="LOCAL-00032" summary="take care of multiclass and 'numeric' classes">
+      <created>1705653067635</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1705653067635</updated>
+    </task>
+    <task id="LOCAL-00033" summary="minor">
+      <created>1705653437216</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1705653437216</updated>
+    </task>
+    <task id="LOCAL-00034" summary="initial">
+      <created>1706361627399</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1706361627400</updated>
+    </task>
+    <task id="LOCAL-00035" summary="minor">
+      <created>1706544256900</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1706544256900</updated>
+    </task>
+    <task id="LOCAL-00036" summary="univariate FS added">
+      <created>1706706533588</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1706706533588</updated>
+    </task>
+    <task id="LOCAL-00037" summary="univariate FS complete">
+      <created>1706708126978</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1706708126978</updated>
+    </task>
+    <task id="LOCAL-00038" summary="pull dataset loading out of run loop">
+      <created>1706799838098</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1706799838098</updated>
+    </task>
+    <task id="LOCAL-00039" summary="initiation">
+      <created>1706968198905</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1706968198905</updated>
+    </task>
+    <task id="LOCAL-00040" summary="missing for simulated data">
+      <created>1707895831870</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1707895831870</updated>
+    </task>
+    <task id="LOCAL-00041" summary="minor">
+      <created>1710150749005</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1710150749005</updated>
+    </task>
+    <option name="localTasksCounter" value="42" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Replaced r2 metric with correlation squared." />
+    <MESSAGE value="Make sure all classes are represented in BBC resampling" />
+    <MESSAGE value="optional plot of CIs" />
+    <MESSAGE value="fast AUC calculation" />
+    <MESSAGE value="file delete" />
+    <MESSAGE value="Multiclass data simulation for one vs one based metric" />
+    <MESSAGE value="Multiclass case included" />
+    <MESSAGE value="agreed simulation parameter lists" />
+    <MESSAGE value="compare pooled vs fold BBC" />
+    <MESSAGE value="remove irrelevant lines" />
+    <MESSAGE value="BBC methods comparison" />
+    <MESSAGE value="fast AUC implemented" />
+    <MESSAGE value="minor problem in fast auc" />
+    <MESSAGE value="pooled BBC resample indices if out of bag performances not calculable" />
+    <MESSAGE value="save plots as pdf" />
+    <MESSAGE value="initiate" />
+    <MESSAGE value="save split indices tables by dataset" />
+    <MESSAGE value="take care of multiclass and 'numeric' classes" />
+    <MESSAGE value="initial" />
+    <MESSAGE value="univariate FS added" />
+    <MESSAGE value="univariate FS complete" />
+    <MESSAGE value="pull dataset loading out of run loop" />
+    <MESSAGE value="initiation" />
+    <MESSAGE value="missing for simulated data" />
+    <MESSAGE value="minor" />
+    <option name="LAST_COMMIT_MESSAGE" value="minor" />
+  </component>
+</project>
