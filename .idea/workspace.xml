@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="66f5acfb-b5dd-4d10-9d39-9b7790b8ae5e" name="Changes" comment="minor" />
+    <list default="true" id="66f5acfb-b5dd-4d10-9d39-9b7790b8ae5e" name="Changes" comment="minor">
+      <change beforePath="$PROJECT_DIR$/code/bbc_time_analysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/code/bbc_time_analysis.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -328,7 +330,14 @@
       <option name="project" value="LOCAL" />
       <updated>1710150749005</updated>
     </task>
-    <option name="localTasksCounter" value="42" />
+    <task id="LOCAL-00042" summary="minor">
+      <created>1710341052661</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1710341052661</updated>
+    </task>
+    <option name="localTasksCounter" value="43" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
