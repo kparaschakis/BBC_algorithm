@@ -12,7 +12,7 @@ The main scripts are grouped into two categories: "simulation" and "real_data". 
 
 Simulation:
 - "simulation_1_data.py" simulates the configuration performances, outcomes, out-of-sample predictions, and fold indices for the various simulation settings presented in the paper and stores them as csv files in a dedicated folder.
-- "simulation_"_apply_BBC_on_data.py" applies the two BBC methods (original and BBC-F) on the simulated predictions from the previous step and stores the resulting bootstrap distributions and the theoreticl performqnces of the selected configurations in a dedicated folder.
+- "simulation_2_apply_BBC_on_data.py" applies the two BBC methods (original and BBC-F) on the simulated predictions from the previous step and stores the resulting bootstrap distributions and the theoreticl performqnces of the selected configurations in a dedicated folder.
 - "simulation_3_calculate_CI" takes the output from the previous step and calculates the one-sided 95% CI for all cases and the inclusion percentages and the average tightness in each case and stores all results.
 - "simulation_4_combine_with_R_results.py" combines the results on the two BBC methods and the results from the R-code (discussed later) on the rest of the methods.
 
