@@ -18,14 +18,14 @@ Simulation:
 
 Real data:
 - "real_data_1_splits" imports the datasets (downloaded from OpenML) from a folder in arff. format, creates 100 different stratified train/holdout splits and saves the split indices in a dedicated folder.
-- "real_data_2_run_on_JAD.py" uploads for each dataset the various training subsets from the previous step and runs the analysis on JADBio. Then it stores the resulting outcome, out-of-sample predictions, fold indices, and descriptions of the applied configurations. This step cannot be run without special API access to JADBio.
+- "real_data_2_run_on_JAD.py" uploads for each dataset the various training subsets from the previous step and runs the analysis on JADBio. Then it stores the resulting outcome, out-of-sample predictions, fold indices, and descriptions of the applied configurations. This step cannot be run without special API access to JADBio. Instead, we have included in the accompanying meterial the output (folder "JAD_results") needed to run further steps.
 - "real_data_3_apply_BBC_on_data.py" applies the two BBC methods on the results from the previous step and stores the best configuration for each JADBio analysis and the corresponding botstrap distributions.
-- "real_data_4_evaluation_on_JAD" uploads for each dataset/split the holdout dataset and runs the winner configuration to get the holdout performances.
+- "real_data_4_evaluation_on_JAD" uploads for each dataset/split the holdout dataset and runs the winner configuration to get the holdout performances. This step cannot be run without special API access to JADBio. Instead, we have included in the accompanying meterial the output (folder "real_datasets_holdOut_performances") needed to run further steps.
 - "real_data_5_calculate_CI" takes the resuls of the previous steps, along with the corresponding results from the R-code run on the same out-of-sample predictions for the comparison methods, and calculates the inclusion percentages and the average tightnesses and stores the results.
 
 -----
 
-Below are some notes on the R-code provided by the authors of "Post-Selection Confidence Bounds for Prediction Performance. 422 2023. arXiv: 2210.13206 [stat.ML]", used to apply the comparison methods in our paper. (https://github.com/pascalrink/mabt-experiments?tab=readme-ov-file).
+Below are some notes on the R-code provided by the authors of "Post-Selection Confidence Bounds for Prediction Performance. 422 2023. arXiv: 2210.13206 [stat.ML]", used to apply the comparison methods in our paper. (https://github.com/pascalrink/mabt-experiments?tab=readme-ov-file). This code can also be found in this repository.
 
 The R scripts "MabtCi-function.R" and "TiltCi-function.R" contain the functions for applying the MABT and BT methods and are loaded by the other two scripts "simulated_data.R" and "real_datasets.R". 
 
