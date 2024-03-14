@@ -25,9 +25,7 @@ Real data:
 
 -----
 
-### TODO: Remove this and give link to the original repo.
-
-Below are some notes on the R-code provided by the authorsof "Post-Selection Confidence Bounds for Prediction Performance. 422 2023. arXiv: 2210.13206 [stat.ML]", used to apply the comparison methods in our paper.
+Below are some notes on the R-code provided by the authors of "Post-Selection Confidence Bounds for Prediction Performance. 422 2023. arXiv: 2210.13206 [stat.ML]", used to apply the comparison methods in our paper. (https://github.com/pascalrink/mabt-experiments?tab=readme-ov-file).
 
 The R scripts "MabtCi-function.R" and "TiltCi-function.R" contain the functions for applying the MABT and BT methods and are loaded by the other two scripts "simulated_data.R" and "real_datasets.R". 
 
@@ -36,8 +34,6 @@ The R scripts "MabtCi-function.R" and "TiltCi-function.R" contain the functions 
 "real_datasets.R" loads the JADBio output on the real datasets stored by "real_data_2_run_on_JAD.py" above and calculates the 95% intervals for all datasets and all splits, along with the corresponding "winner configurations" and stores the results.
 
 -----
-
-### Miscellaneous
 
 The script "plot_results.py" generates the plots found in the paper. As input it requires the excel file "BBC vs MABT.xlsx" that has a summary of the experimental results.
 
