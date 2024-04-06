@@ -44,7 +44,7 @@ def make_configuration(description):
         elif 'Polynomial Kernel' in description:
             gamma = np.float(description.split('gamma = ')[1].split(',')[0])
             degree = int(description.split('degree = ')[1])
-            ml = PolynomialSVM(degrees=degree, cost=10 ** cost, gamma=gamma)
+            ml = PolynomialSVM(degrees=degree, cost=cost, gamma=gamma)
         else:
             gamma = np.float(description.split('gamma = ')[1])
             ml = RBFSVM(cost=cost, gamma=gamma)

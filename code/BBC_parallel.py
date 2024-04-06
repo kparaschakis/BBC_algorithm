@@ -93,8 +93,7 @@ def bbc(oos_matrix, labels, analysis_type, folds, bbc_type='pooled', iterations=
     performance_matrix = np.zeros((F, C))
     for f in range(F):
         for c in range(C):
-            performance_matrix[f, c] = metric_func(labels[folds == f].astype(bool),
-                                                   oos_matrix[folds == f, c].astype(np.float32))
+            performance_matrix[f, c] = metric_func(labels[folds == f], oos_matrix[folds == f, c])
     winner_configuration = np.argmax(np.mean(performance_matrix, axis=0))
 
     bbc_distribution = None

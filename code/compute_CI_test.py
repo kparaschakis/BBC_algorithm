@@ -53,7 +53,7 @@ if __name__ == "__main__":
     beta = 6
     samples = 500
     config = 20
-    foldss=5
+    folds = 5
     balance = 0.5
     type_ = 'classification'
     bbc_type = 'fold'
