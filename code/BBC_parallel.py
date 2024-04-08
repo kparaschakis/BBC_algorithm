@@ -1,7 +1,5 @@
-import numpy as np
 from joblib import Parallel, delayed
 from fastauc.fast_auc import *
-from sklearn.metrics import roc_auc_score
 
 
 def corrcoef2(V1, V2):
@@ -33,40 +31,19 @@ def bbc_pooled(args):
                 (len(np.unique(labels)) > len(np.unique(labels[out_of_bag_indices]))):
             in_bag_indices = sorted(np.random.choice(N, N, replace=True))
             out_of_bag_indices = list(set(list(range(N))) - set(in_bag_indices))
-    in_bag_performances = [metric_func(labels[in_bag_indices].astype(bool),
-                                       oos_matrix[in_bag_indices, j].astype(np.float32)) for j in range(C)]
+    if analysis_type in ['multiclass', 'regression']:
+        in_bag_performances = [metric_func(labels[in_bag_indices], oos_matrix[in_bag_indices, j]) for j in range(C)]
+    else:
+        in_bag_performances = [metric_func(labels[in_bag_indices].astype(bool),
+                                           oos_matrix[in_bag_indices, j].astype(np.float32)) for j in range(C)]
     winner_configuration = np.argmax(in_bag_performances)
-    out_of_bag_performance = metric_func(labels[out_of_bag_indices].astype(bool),
-                                         oos_matrix[out_of_bag_indices, winner_configuration].astype(np.float32))
+    if analysis_type in ['multiclass', 'regression']:
+        out_of_bag_performance = metric_func(labels[out_of_bag_indices],
+                                             oos_matrix[out_of_bag_indices, winner_configuration])
+    else:
+        out_of_bag_performance = metric_func(labels[out_of_bag_indices].astype(bool),
+                                             oos_matrix[out_of_bag_indices, winner_configuration].astype(np.float32))
     return out_of_bag_performance
-
-
-def bbc_averaged(args):
-    labels, oos_matrix, N, C, metric_func, analysis_type, fold_ids, folds = args
-    in_bag_indices = sorted(np.random.choice(N, N, replace=True))
-    out_of_bag_indices = list(set(list(range(N))) - set(in_bag_indices))
-    in_bag_performances = []
-    for j in range(C):
-        in_bag_fold_performances = []
-        for f in fold_ids:
-            index_selection = [ib for ib in in_bag_indices if folds[ib] == f]
-            if (analysis_type in ['classification', 'multiclass']) &\
-                    (len(np.unique(labels[index_selection])) < len(np.unique(labels))):
-                index_selection = [ib for ib in in_bag_indices if folds[ib] == f]
-            in_bag_fold_performances.append(metric_func(labels[index_selection].astype(bool),
-                                                        oos_matrix[index_selection, j].astype(np.float32)))
-        in_bag_performances.append(np.mean(in_bag_fold_performances))
-    winner_configuration = np.argmax(in_bag_performances)
-    out_of_bag_fold_performances = []
-    for f in fold_ids:
-        index_selection = [ib for ib in out_of_bag_indices if folds[ib] == f]
-        if ((analysis_type == 'regression') | ((analysis_type in ['classification', 'multiclass']) &
-                                               (len(np.unique(labels[index_selection])) == len(np.unique(labels))))):
-            out_of_bag_fold_performances.append(
-                metric_func(labels[index_selection].astype(bool),
-                            oos_matrix[index_selection, winner_configuration].astype(np.float32)))
-    out_of_bag_performances = np.mean(out_of_bag_fold_performances)
-    return out_of_bag_performances
 
 
 def bbc_fold(args):
@@ -82,8 +59,8 @@ def bbc_fold(args):
 
 def bbc(oos_matrix, labels, analysis_type, folds, bbc_type='pooled', iterations=1000, n_jobs=-1):
     auc = CppAuc()
-    assert bbc_type in ('pooled', 'averaged', 'fold')
-    metric_func = roc_auc_score if analysis_type == 'classification'\
+    assert bbc_type in ('pooled', 'fold')
+    metric_func = auc.roc_auc_score if analysis_type == 'classification'\
         else corrcoef2 if analysis_type == 'regression' else auc_multiclass
 
     N = len(labels)  # number of samples
@@ -93,7 +70,11 @@ def bbc(oos_matrix, labels, analysis_type, folds, bbc_type='pooled', iterations=
     performance_matrix = np.zeros((F, C))
     for f in range(F):
         for c in range(C):
-            performance_matrix[f, c] = metric_func(labels[folds == f], oos_matrix[folds == f, c])
+            if analysis_type in ['multiclass', 'regression']:
+                performance_matrix[f, c] = metric_func(labels[folds == f], oos_matrix[folds == f, c])
+            else:
+                performance_matrix[f, c] = metric_func(labels[folds == f].astype(bool),
+                                                       oos_matrix[folds == f, c].astype(np.float32))
     winner_configuration = np.argmax(np.mean(performance_matrix, axis=0))
 
     bbc_distribution = None
@@ -101,14 +82,6 @@ def bbc(oos_matrix, labels, analysis_type, folds, bbc_type='pooled', iterations=
         bbc_distribution = Parallel(prefer="threads", n_jobs=n_jobs)(
             delayed(bbc_pooled)(
                 (labels, oos_matrix, N, C, metric_func, analysis_type)
-            ) for _ in range(iterations)
-        )
-
-    elif bbc_type == 'averaged':
-        fold_ids = np.unique(folds)
-        bbc_distribution = Parallel(prefer="threads", n_jobs=n_jobs)(
-            delayed(bbc_averaged)(
-                (labels, oos_matrix, N, C, metric_func, analysis_type, fold_ids, folds)
             ) for _ in range(iterations)
         )
 
