@@ -4,6 +4,13 @@ Scripts "BBC_parallel.py", "compare_pooledBBC_foldBBC.py", "compute_CI_test.py",
 
 -----
 
+### Download the results
+To access and download the raw results obtained with JADBio, click the button:
+[![Download oos results](https://img.shields.io/badge/Download-Dataset-blue.svg)](https://figshare.com/s/b8f72d61476be2fc04fc)
+
+-----
+
+
 The folder "fastAUC" contains a faster implementation (compared to the standard python sklearn implementation) of the AUC metric.
 
 -----
