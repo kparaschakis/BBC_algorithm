@@ -93,9 +93,9 @@ if __name__ == "__main__":
         plt.legend()
         fig.tight_layout()
         plt.show()
-        fig.savefig(f'../results/{exp_type}_LOG.pdf', dpi=250, bbox_inches='tight')
+        fig.savefig(f'../../output/time_analysis/{exp_type}_LOG.pdf', dpi=250, bbox_inches='tight')
 
-        with open(f'../results/time_{exp_type}.json', 'w') as fp:
+        with open(f'../../output/time_analysis/time_{exp_type}.json', 'w') as fp:
             json.dump(exp_results, fp, indent=0)
         print(f"json saved in results folder")
 
