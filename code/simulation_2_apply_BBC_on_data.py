@@ -1,13 +1,15 @@
 # Libraries and functions
+import os
 import pandas as pd
 from core.BBC_parallel import *
 
 # Define BBC types
 bbc_types = ['pooled', 'fold']
 # Number of BBC iterations
-bbc_iter = 500
+bbc_iter = 10
 # Read simulation configurations
 sim_configurations = sorted(os.listdir('../simulated_data_for_comparison/'))
+os.makedirs('../simulated_data_results/', exist_ok=True)
 # Loop over various simulation configurations
 for sc in range(len(sim_configurations)):
     # Read simulation parameters
@@ -61,3 +63,4 @@ for sc in range(len(sim_configurations)):
                                           index=False)
     # noinspection PyTypeChecker
     pd.DataFrame(theoretical).to_csv('../simulated_data_results/' + sim_conf + '_theoretical.csv', index=False)
+

@@ -35,6 +35,8 @@ conda create --name <env_name> --file requirements.txt
 To access and download the raw results obtained with JADBio, click the button:
 [![Download oos results](https://img.shields.io/badge/Download-Dataset-blue.svg)](https://figshare.com/s/b8f72d61476be2fc04fc)
 
+#TODO: to run the code, create the folder /real_dataset/ <- put here.
+
 -----
 
 
