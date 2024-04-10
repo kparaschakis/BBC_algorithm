@@ -3,7 +3,7 @@ import pandas as pd
 import arff
 from io import StringIO
 from fastauc.fast_auc import *
-from make_API_configuration import *
+from core.make_API_configuration import *
 #
 from jadbio_internal.ml import analysis_form
 from jadbio_internal.api_client import ApiClient

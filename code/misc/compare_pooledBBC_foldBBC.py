@@ -1,6 +1,6 @@
 # Libraries
-from BBC_parallel import *
-from generate_data import *
+from core.BBC_parallel import *
+from core.generate_data import *
 from compute_CI_test import percentile_uniformity
 from tqdm import tqdm
 import matplotlib.pyplot as plt

@@ -1,18 +1,13 @@
-import os
-import itertools
 import json
 
 from time import time
 
 import numpy as np
 
-from BBC_parallel import bbc
-from generate_data import get_data
-
-from tqdm import tqdm
+from core.BBC_parallel import bbc
+from core.generate_data import get_data
 
 import matplotlib.pyplot as plt
-import seaborn as sns
 
 #plt.style.use('seaborn-paper')
 

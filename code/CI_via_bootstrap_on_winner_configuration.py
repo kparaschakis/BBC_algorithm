@@ -1,7 +1,7 @@
 import os
 import pandas as pd
 import numpy as np
-from BBC_parallel import auc_multiclass
+from core.BBC_parallel import auc_multiclass
 from sklearn.metrics import roc_auc_score
 
 # Simulation

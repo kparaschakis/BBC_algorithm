@@ -4,6 +4,33 @@ Scripts "BBC_parallel.py", "compare_pooledBBC_foldBBC.py", "compute_CI_test.py",
 
 -----
 
+## Requirements
+#TODO
+numpy~=1.24.3
+pandas~=1.5.3
+matplotlib~=3.7.1
+scipy~=1.10.1
+scikit-learn~=1.2.2
+joblib~=1.2.0
+seaborn~=0.12.2
+numba~=0.57.0
+tqdm~=4.65.0
+
+Installing dependencies:
+(We strongly suggest to use anaconda and create a virtual environment)
+```bash
+using pip
+pip install -r requirements.txt
+
+# using Conda
+conda create --name <env_name> --file requirements.txt
+```
+
+
+#TODO: C++ compiler for fast auc
+
+
+
 ### Download the results
 To access and download the raw results obtained with JADBio, click the button:
 [![Download oos results](https://img.shields.io/badge/Download-Dataset-blue.svg)](https://figshare.com/s/b8f72d61476be2fc04fc)

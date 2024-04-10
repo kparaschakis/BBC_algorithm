@@ -3,7 +3,7 @@ import os
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-from compute_CI_test import percentile_uniformity
+from misc.compute_CI_test import percentile_uniformity
 from matplotlib.backends.backend_pdf import PdfPages
 
 # Read simulation configurations

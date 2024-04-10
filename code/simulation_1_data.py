@@ -1,5 +1,5 @@
 # Libraries and functions
-from generate_data import *
+from core.generate_data import *
 import pandas as pd
 import os
 

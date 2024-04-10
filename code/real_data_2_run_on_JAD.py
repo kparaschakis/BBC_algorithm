@@ -2,7 +2,7 @@
 import os
 import pandas as pd
 import arff
-from read_JAD_output import *
+from core.read_JAD_output import *
 from jadbio_internal.ml import analysis_form
 from jadbio_internal.api_client import ApiClient
 from jadbio_internal.ml.tuning import tuning_params
