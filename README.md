@@ -39,6 +39,8 @@ conda create --name <env_name> --file requirements.txt
 │   ├── fastauc/                          # contains C++ code for a faster implementation (compared to the standard python sklearn implementation) of the AUC metric
 │   │   └── ...
 │   ├── core/                             # contains the BBC/BBC-F implementations, the simulated data generator, and other core functions
+│   │   ├── BBC_parallel.py               # contains the function to implement BBC and BBC-F. It makes use of multithreading and parallelization tools from joblib library
+│   │   ├── generate_data.py              # function to generate the simulation data for the experiments
 │   │   └── ...
 │   ├── plot_results/
 │   │   ├── bbc_time_analysis.py          # script to reproduce the time complexity analysis and generate the plots
@@ -73,33 +75,51 @@ conda create --name <env_name> --file requirements.txt
 To access and download the raw results on the real-world benchmakrs dataset (1.12 GB), obtained with JADBio , click the button:
 [![Download oos results](https://img.shields.io/badge/Download-Dataset-blue.svg)](https://figshare.com/s/b8f72d61476be2fc04fc)
 
+In order to corectly run the code and reproduce the results, create and unpack the files in the folder: ```./real_datasets/``` . 
+
+The structure of the provided results is the following:
+```bash
+└── out-of-sample results with JADBio/                                
+    ├── JAD_results/        # output of script 'real_data_2_run_on_JAD.py'
+    │   ├── <dataset_name>_run_<N>_configurations.csv      
+    │   ├── <dataset_name>_run_<N>_outcome.csv                 
+    │   ├── <dataset_name>_run_<N>_splitIndices.csv                  
+    │   └── ...
+    └── real_datasets_holdOut_performances/    # output of script 'real_data_4_evaluation_on_JAD.py'    
+        ├── <dataset_name>.csv                 
+        └── ...
+```
+
+
 -----
 ## Running instructions
 
 We conduct experiments with real-world data, and simulated data.
+The runtime of our experiments, just the python part i.e., analysis of the data and computation of BBC and BBC-F, depends on the system specification, but it can go from 2h to 10h.
 
 To train the models and evaluate their performance on the real world data, we use the commercial suite for AutoML [JADBio](https://jadbio.com/).
-With access to their paid API, to reproduce the results, just execute in order the files ./code/real_data_<#>.py, from 1 to 5.
+With access to their API, to reproduce the results, just execute in order the files ```./code/real_data_<#>.py```, from 1 to 5.
 Without access to the JADBio API, we provide the evaluation output at the aforementioned link, and the intermediate analysis in the folder ./output/ and also the final results in the final_results.xlsx file.
 
+
 To reproduce the results with the simulated data, here it is an example.
-To change the simulated data hyperparameter, modify the lines 7-12 in the file ./code/simulation_1_data.py
+To change the simulated data hyperparameter, modify the lines 7-12 in the file ```./code/simulation_1_data.py```.
 
 ### Example
-Turn on the created python environment and run the following code from the ./code/ folder:
+Turn on the created python environment and run the following code from the ```./code/``` folder:
 ```bash
 python simulation_1_data.py
 python simulation_2_apply_BBC_on_data.py
 python simulation_3_calculate_CI.py
 ```
-At this point, the R code from ./code/R_code/ folder needs to be run.
-In case there are some problems with R, we provided the expected output in the /output/ folder.
+At this point, the R code from ```./code/R_code/``` folder needs to run.
+In case there are some problems with R, we provided the expected output in the ```/output/``` folder.
 Then:
 ```bash
-python simulation4_combine_with_R_results.py
+python simulation_4_combine_with_R_results.py
 ```
 Now, you should have a folder with all the results. 
-For simplicty, we summarize them in an excel file (/output/final_results.xlsx), where we compute the p-score and ranking.
+For simplicty, we summarize them in an excel file (```/output/final_results.xlsx```), where we compute the p-score and ranking.
 Finally, to reproduce the plots, just run:
 ```bash
 python plot_results/plot_results.py
@@ -110,12 +130,12 @@ To reproduce the time-complexity analysis of BBC and BBC-F. Execute the followin
 ```bash
 python plot_results/bbc_time_analysis.py
 ```
-Then, the produced plots and logs should be found in the folder /output/time_analsys/ .
+Then, the produced plots and logs should be found in the folder ```/output/time_analsys/``` .
 
-Anyway, we provide all our intermediate and final results of our experiments in /output/ folder.
+Anyway, we provide all our intermediate and final results of our experiments in ```/output/``` folder.
 
 -----
-## Contact and reference
+## Contact and citing
 #TODO after double-blind peer review process...
 
 
