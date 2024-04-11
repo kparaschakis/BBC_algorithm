@@ -45,6 +45,8 @@ conda create --name <env_name> --file requirements.txt
 │   ├── plot_results/
 │   │   ├── bbc_time_analysis.py          # script to reproduce the time complexity analysis and generate the plots
 │   │   └── plot_results.py               # script to generate the plots included in the paper
+│   ├── misc/                             # miscellaneous functions 
+│   │   └── ... 
 │   ├── real_data_1_splits.py             # imports the datasets (downloaded from OpenML) from a folder in arff. format, creates 100 different stratified train/holdout splits and saves the split indices in a dedicated folder
 │   ├── real_data_2_run_on_JAD.py         # uploads for each dataset the various training subsets from the previous step and runs the analysis on JADBio. Then it stores the resulting outcome, out-of-sample predictions, fold indices, and descriptions of the applied configurations. This step cannot be run without special API access to JADBio. Instead, we have included in the accompanying meterial the output (folder "JAD_results") needed to run further steps
 │   ├── real_data_3_apply_BBC_on_data.py  # applies the two BBC methods on the results from the previous step and stores the best configuration for each JADBio analysis and the corresponding botstrap distributions
@@ -65,8 +67,8 @@ conda create --name <env_name> --file requirements.txt
 │   │   └── ...
 │   ├── final_results.xlsx      # excel sheet with the summary of the final results reported in the paper
 │   └── ...                     # the other files are intermediate results output by the library. They are stored here for simplicity
-├── misc/                       # miscellaneous functions 
-│   └── ...                 
+├── real_datasets/              # create this folder to store JAD results
+│   └── ...                     # <- put here the JAD results
 └── ...
 ```
 
