@@ -4,19 +4,12 @@ import pandas as pd
 import os
 
 # Simulation parameters
-# alpha_beta_list = [[9, 6], [24, 6]]
-# samples_list = [50, 500]
-# config_list = [100, 500]
-# balance_list = ['equal', 0.1]
-# classes_list = [2, 5]
-# CI_iter = 200
-alpha_beta_list = [[24, 6],]
-samples_list = [100]
-config_list = [10]
-balance_list = ['equal',]
-classes_list = [2,]
-CI_iter = 10
-
+alpha_beta_list = [[9, 6], [24, 6]]
+samples_list = [50, 500]
+config_list = [100, 500]
+balance_list = ['equal', 0.1]
+classes_list = [2, 5]
+CI_iter = 200
 
 # Set seed
 np.random.seed(4321)
