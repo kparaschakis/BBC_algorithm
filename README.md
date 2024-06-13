@@ -1,8 +1,6 @@
 # Condifence Interval Estimation of Predictive Performance in the Context of AutoML
 
-This repository contains the code for the paper "Condifence Interval Estimation of Predictive Performance in the Context of AutoML" (submitted at AutoML 2024).
-
-#TODO: add arXve link.
+This repository contains the code for the paper ["Condifence Interval Estimation of Predictive Performance in the Context of AutoML"](https://arxiv.org/abs/2406.08099) by Konstantinos Paraschakis, Andrea Castellani, Giorgos Borboudakis and Ioannis Tsamardinos (accepted at AutoML 2024).
 
 -----
 ## Requirements
@@ -137,7 +135,16 @@ Then, the produced plots and logs should be found in the folder ```/output/time_
 Anyway, we provide all our intermediate and final results of our experiments in ```/output/``` folder.
 
 -----
-## Contact and citing
-#TODO after double-blind peer review process...
-
+## References
+If this work has been useful, please cite us with:
+```Bibtex
+@inproceedings{
+Paraschakis2024confidence,
+title={Confidence Interval Estimation of Predictive Performance in the Context of Auto{ML}},
+author={Konstantinos Paraschakis, Andrea Castellani, Giorgos Borboudakis and Ioannis Tsamardinos},
+booktitle={AutoML 2024 Methods Track},
+year={2024},
+url={https://arxiv.org/abs/2406.08099}
+}
+```
 
